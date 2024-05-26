@@ -20,7 +20,7 @@ const service = {
 // Crear un servidor HTTP
 const server = http.createServer(function(request, response) {
   // Verificar si la solicitud es para /wsdl
-  if (request.url === '/wsdl') {
+  if (request.url === '/') {
     response.writeHead(200, {'Content-Type': 'application/xml'});
     response.end(wsdlContent);
   } else {
