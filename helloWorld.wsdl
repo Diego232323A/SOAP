@@ -1,0 +1,54 @@
+<definitions
+    name="HelloWorldService"
+    targetNamespace="http://example.com/wsdl"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/wsdl">
+      <element name="HelloWorldRequest"/>
+      <element name="HelloWorldResponse">
+        <complexType>
+          <sequence>
+            <element name="greeting" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+
+  <message name="HelloWorldRequest">
+    <part name="parameters" element="tns:HelloWorldRequest"/>
+  </message>
+  <message name="HelloWorldResponse">
+    <part name="parameters" element="tns:HelloWorldResponse"/>
+  </message>
+
+  <portType name="HelloWorldPortType">
+    <operation name="HelloWorld">
+      <input message="tns:HelloWorldRequest"/>
+      <output message="tns:HelloWorldResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="HelloWorldBinding" type="tns:HelloWorldPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="HelloWorld">
+      <soap:operation soapAction="http://example.com/wsdl/HelloWorld"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="HelloWorldService">
+    <port name="HelloWorldPort" binding="tns:HelloWorldBinding">
+      <soap:address location="http://localhost:8000/wsdl"/>
+    </port>
+  </service>
+
+</definitions>
