@@ -18,18 +18,17 @@ jobs:
           access_token: ${{ github.token }}
 
   build:
-    runs-on: ubuntu-latest  
-  
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2  
+      - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  
-  
-      - name: Install PHP and extensions
-        uses: shivammathur/setup-php@v2  
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
         with:
-          php-version: '7.4' 
-          extensions: mysqli
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install soap
+
 
   deploy:
     needs: [avoid_reduncy, build]
